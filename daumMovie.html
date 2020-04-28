@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>현재상영/개봉영화 | 다음영화</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            /* width: 960px; */
+            margin: 0 auto;
+            background-color: #ffffff;
+            font-size: 12px;
+            line-height: 1.5;
+            font-family: AppleSDGothicNeo-Regular,'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif;
+            color: #222;
+            letter-spacing: -0.05em;
+        }
+        a{
+            text-decoration: none;
+            color: #333;
+        }
+        li{
+            list-style: none;
+        }
+        #wrap{
+            min-width: 990px;
+            padding-top: 40px;
+        }
+        #head{
+            width: 100%;
+        }
+        .d_head{
+            width: 1100px;
+            height: 39px;
+            padding: 28px 0 30px;
+            margin:0 auto;
+        }
+        .d_head h1{            
+            line-height: 27px;
+            font-weight: bold;
+            font-size: 25px;
+            margin-top: 8px;
+            margin-right: 10px;
+            float: left;
+        }
+        .searchbar{
+            float: right;
+            width: 216px;
+            height: 24px;
+            margin-top: 3px;
+            padding: 5px 0 4px;
+            border: 1px solid #c8c8c8;
+            position: relative;
+        }
+        .searchbar input{
+            border: 0 none;
+            padding-left: 11px;
+            width: 171px;
+            height: 25px;
+        }
+        .searchbar button{
+            background-image: url('ico_searchbar.png');
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 34px;
+            height: 34px;
+        }
+        .nav{
+            height: 70px;
+            clear:both;
+            border-top: 1px solid #e2e2e2;
+            border-bottom: 1px solid #e2e2e2;
+        }
+        .nav_in{
+            width: 1100px;
+            margin: 0 auto;
+        }
+        .nav li{
+            float: left;
+            text-align: center;
+            line-height: 73px;
+            font-weight: bold;
+            font-size: 16px;            
+        }
+        .nav a:hover{
+            color: rgb(255, 70, 46);
+        }
+        .nav_l li{
+            margin-right: 40px;
+        }
+        .nav_r li{
+            float: right;
+            margin: 0 0 0 40px;
+        }
+
+        /* content */
+        #main{
+            width: 1100px;
+            margin: 0 auto;
+        }
+        .menu{
+            margin-top: 45px;
+            height: 42px;
+            text-align: center;
+        }
+        .menu ul{
+            display: inline-block;
+        }
+        .menu li{
+            list-style: none;
+            float: left;
+        }
+        .menu a{
+            display: block;
+            width: 147px;
+            height: 42px;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 37px;
+            border: 1px solid #FF645C;
+            color: #FF645C;
+        }
+        .list_movie{
+            width: 1153px;
+            padding-top: 30px;
+            margin-top: -40px;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-template-rows: repeat(5,1fr);
+        }
+        .list_movie li{
+            width: 236px;
+            margin: 40px 52px 0 0;
+        }
+        .list_movie.poster{
+            height: 340px;
+        }
+        #page{
+            width: 1100px;
+            height: 50px;
+            margin: 25px auto;                        
+        }
+        #page ul{
+            margin: 0 auto;
+        }
+        #page li{
+            float: left;            
+        }
+        #page a{
+            display: block;
+            width: 28px;
+            height: 28px;
+            background-color: tomato;
+            border-radius: 50px;
+            text-align: center;
+            line-height: 30px;
+        }
+        #footer{
+            width: 100%;
+            height: 86px;
+            padding: 30px 0 50px;
+            background-color: #222223;
+            color: #d4d2d9;
+        }
+        .foot_in {
+            width: 1100px;
+            height: 86px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .foot_l{            
+            width: 65%;
+            margin-right: 100px;
+        }
+        .foot_l li{
+            float: left;
+        }
+        .foot_l a{
+            display: block;
+            color: #d4d2d9;
+        }
+        .f_nav{
+            height: 22px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+        .f_nav li{
+            margin-right: 27px;
+        }
+        .f_etc,.f_etc a{
+            margin-right: 18px;          
+            font-size: 11px;
+            color: #868487;
+        }
+        .foot_r{                        
+            width: 280px;                        
+            position: absolute;
+            right: 0px;
+            top: 15px;
+            color: #868487;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="head">
+            <div class="d_head" style="padding-bottom: 30px;">
+                <h1><a href="#">영화</a></h1>
+                <h1><a href="#">연예</a></h1>
+                <div class="searchbar">
+                    <label for="search" style="position: relative; left: 11px; top:6px;">통합검색</label>
+                    <input type="search" name="" id="search">
+                    <button></button>
+                </div>
+            </div>
+            <div class="nav">
+                <div class="nav_in">
+                <div class="nav_l">
+                <ul>
+                    <li><a href="">홈</a></li>
+                    <li><a href="" style="color: #FF645C;">현재상영/개봉예정</a></li>
+                    <li><a href="">박스오피스</a></li>
+                    <li><a href="">빠른예매</a></li>
+                    <li><a href="">뉴스</a></li>
+                </ul>
+                </div>
+                <div class="nav_r">
+                    <ul>
+                        <li><a href="">내 평점</a></li>
+                        <li><a href="">예매 내역</a></li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content">
+            <div id="main">
+                <div class="menu">
+                    <ul>
+                        <li><a href="">현재상영</a></li>
+                        <li><a href="">개봉예정</a></li>
+                    </ul>
+                </div>
+                <ul class="list_movie">
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/lalaland.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">라라랜드</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.03.25 재개봉 . 예매율 13.99%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/ghostship.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">유령선</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.04.15 개봉 . 예매율 8.3%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/theinformer.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">비밀정보원:인 더 프리즌</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.04.15 개봉 . 예매율 5.08%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/afterweddinginnewyork.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">애프터 웨딩 인 뉴욕</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.04.23 개봉 . 예매율 4.7%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/searchout.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">서치 아웃</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.04.15 개봉 . 예매율 3.37%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/openthedoor .png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">오픈 더 도어</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.04.08 개봉 . 예매율 2.64%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/inuyasiki.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">이누야시키:히어로 VS 빌런</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.04.22 개봉 . 예매율 2.34%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="poster">
+                            <img src="./movieimg/1917.png" alt="">
+                        </div>
+                        <div class="info">
+                            <div>
+                                <a class="movie_name" href="">1917</a>
+                            </div>
+                            <p><a href="#">네티즌</a></p>
+                            <p>20.02.19 개봉 . 예매율 19.67%</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="page">                
+                <ul>
+                    <li><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="footer">
+            <div class="foot_in">
+                <div class="foot_l">
+                    <ul class="f_nav">
+                        <li><a href="">홈</a></li>
+                        <li><a href="">현재상영/개봉상영</a></li>
+                        <li><a href="">박스오피스</a></li>
+                        <li><a href="">뉴스</a></li>
+                    </ul>
+                    <ul class="f_etc">
+                        <li><a href="">다음뉴스 소개</a></li>
+                        <li><a href="">공지사항</a></li>
+                        <li><a href="">게시물 운영원칙</a></li>
+                        <li><a href="">서비스 약관/정책</a></li>
+                        <li><a href="">뉴스제휴</a></li>
+                        <li><a href="">비즈니스</a></li>
+                        <li><a href="">권리침해신고</a></li>
+                        <li><a href="">영화 고객센터</a></li>
+                        <li><a href="">24시간 뉴스센터</a></li>
+                        <li><a href="">서비스원칙</a></li>
+                        <li><a href="">바로잡습니다</a></li>
+                        <li>기사배열책임자:손정아</li>
+                        <li>청소년보호책임자:이준목</li>
+                    </ul>
+                </div>
+                <div class="foot_r">
+                    위 내용에 대한 저작권 및 법적 책임은 자료제공사 또는
+                    글쓴이에 있으며, Kakao의 입장과 다를 수 있습니다.
+                    <div style="color: white; margin-top: 8px;">
+                        Copyright © Kakao Corp. All rights reserved.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
