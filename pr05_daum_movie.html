@@ -18,6 +18,7 @@
             font-family: AppleSDGothicNeo-Regular,'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif;
             color: #222;
             letter-spacing: -0.05em;
+            position: relative;
         }
         a{
             text-decoration: none;
@@ -63,12 +64,13 @@
             height: 25px;
         }
         .searchbar button{
-            background-image: url('ico_searchbar.png');
+            background-image: url('./movieimg/search_ico.png');
+            border: none;
             position: absolute;
             right: 0;
             top: 0;
             width: 34px;
-            height: 34px;
+            height: 33px;
         }
         .nav{
             height: 70px;
@@ -99,6 +101,9 @@
         }
 
         /* content */
+        #content{
+            padding-bottom: 45px;
+        }
         #main{
             width: 1100px;
             margin: 0 auto;
@@ -107,6 +112,7 @@
             margin-top: 45px;
             height: 42px;
             text-align: center;
+            position: relative;
         }
         .menu ul{
             display: inline-block;
@@ -115,7 +121,7 @@
             list-style: none;
             float: left;
         }
-        .menu a{
+        .menu ul a{
             display: block;
             width: 147px;
             height: 42px;
@@ -124,6 +130,18 @@
             line-height: 37px;
             border: 1px solid #FF645C;
             color: #FF645C;
+        }
+        .sort{            
+            position: absolute;
+            top: 8px;
+            right: 0px;
+        }
+        .sort a{
+            display: block;
+            float: left;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 14px;
         }
         .list_movie{
             width: 1153px;
@@ -140,23 +158,36 @@
         .list_movie.poster{
             height: 340px;
         }
+        .movie_name{
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .score{
+            font-size: 15px;
+            font-weight: bold;
+            color: #FF645C;
+        }
+        .info:last-child{
+            color: #888;
+        }
         #page{
-            width: 1100px;
-            height: 50px;
-            margin: 25px auto;                        
+            width: 100%;
+            height: 26px;
+            margin-top: 45px;   
+            text-align: center;                    
         }
-        #page ul{
-            margin: 0 auto;
-        }
-        #page li{
-            float: left;            
+        #page>div{
+            display: inline-block;
+            height: 100%;
+            text-align: center;
         }
         #page a{
-            display: block;
+            display: inline-block;
             width: 28px;
-            height: 28px;
-            background-color: tomato;
-            border-radius: 50px;
+            height: 26px;
+            font-size: 14px; 
+            background-color: #FF382E;
+            border-radius: 13px;
             text-align: center;
             line-height: 30px;
         }
@@ -192,10 +223,15 @@
         .f_nav li{
             margin-right: 27px;
         }
-        .f_etc,.f_etc a{
+        .f_etc,.f_etc li{
             margin-right: 18px;          
             font-size: 11px;
             color: #868487;
+            font-weight: bold;
+        }
+        .f_etc a{
+            color: #868487;
+            font-weight: bold;
         }
         .foot_r{                        
             width: 280px;                        
@@ -203,6 +239,45 @@
             right: 0px;
             top: 15px;
             color: #868487;
+        }
+        #top{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            border-bottom: 1px solid #e2e2e2;
+        }
+        #top_in{            
+            width: 1100px;
+            margin: 0 auto;            
+        }
+        .daum{        
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .login{
+            float: left;            
+        }
+        .login a{
+            display: inline-block;
+            width: 50px;
+            height: 22px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 24px;
+            color: #666;
+            border: 1px solid #e4e4e4;
+        }
+        .services{            
+            float: right;
+            padding-top: 8px;
+            text-align: left;
+        }
+        .mail, .service_nav{
+            float: left;
+            width: 24px; height: 24px;
+            margin-left: 24px;
         }
     </style>
 </head>
@@ -212,9 +287,8 @@
             <div class="d_head" style="padding-bottom: 30px;">
                 <h1><a href="#">영화</a></h1>
                 <h1><a href="#">연예</a></h1>
-                <div class="searchbar">
-                    <label for="search" style="position: relative; left: 11px; top:6px;">통합검색</label>
-                    <input type="search" name="" id="search">
+                <div class="searchbar">                    
+                    <input type="search" name="" id="search" value="통합검색">
                     <button></button>
                 </div>
             </div>
@@ -231,8 +305,8 @@
                 </div>
                 <div class="nav_r">
                     <ul>
-                        <li><a href="">내 평점</a></li>
-                        <li><a href="">예매 내역</a></li>
+                        <li><a href="">예매내역</a></li>
+                        <li><a href="">내평점</a></li>
                     </ul>
                 </div>
                 </div>
@@ -244,8 +318,12 @@
                 <div class="menu">
                     <ul>
                         <li><a href="">현재상영</a></li>
-                        <li><a href="">개봉예정</a></li>
+                        <li><a style="color: #888; border: 1px solid #e2e2e2; border-left: none;" href="">개봉예정</a></li>
                     </ul>
+                    <div class="sort">
+                        <a href=""><span>예매순</span></a>
+                        <a href=""><span>개봉순</span></a>
+                    </div>
                 </div>
                 <ul class="list_movie">
                     <li>
@@ -256,7 +334,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -268,7 +346,7 @@
                             <div>
                                 <a class="movie_name" href="">라라랜드</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.03.25 재개봉 . 예매율 13.99%</p>
                         </div>
                     </li>
@@ -280,7 +358,7 @@
                             <div>
                                 <a class="movie_name" href="">유령선</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.04.15 개봉 . 예매율 8.3%</p>
                         </div>
                     </li>
@@ -292,7 +370,7 @@
                             <div>
                                 <a class="movie_name" href="">비밀정보원:인 더 프리즌</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.04.15 개봉 . 예매율 5.08%</p>
                         </div>
                     </li>
@@ -304,7 +382,7 @@
                             <div>
                                 <a class="movie_name" href="">애프터 웨딩 인 뉴욕</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.04.23 개봉 . 예매율 4.7%</p>
                         </div>
                     </li>
@@ -316,7 +394,7 @@
                             <div>
                                 <a class="movie_name" href="">서치 아웃</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.04.15 개봉 . 예매율 3.37%</p>
                         </div>
                     </li>
@@ -328,7 +406,7 @@
                             <div>
                                 <a class="movie_name" href="">오픈 더 도어</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.04.08 개봉 . 예매율 2.64%</p>
                         </div>
                     </li>
@@ -340,7 +418,7 @@
                             <div>
                                 <a class="movie_name" href="">이누야시키:히어로 VS 빌런</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.04.22 개봉 . 예매율 2.34%</p>
                         </div>
                     </li>
@@ -352,7 +430,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -364,7 +442,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -376,7 +454,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -388,7 +466,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -400,7 +478,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -412,7 +490,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -424,7 +502,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -436,7 +514,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -448,7 +526,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -460,7 +538,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -472,7 +550,7 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
@@ -484,17 +562,17 @@
                             <div>
                                 <a class="movie_name" href="">1917</a>
                             </div>
-                            <p><a href="#">네티즌</a></p>
+                            <p><a href="#">네티즌 <span class="score"> ★ 7.3</span></a></p>
                             <p>20.02.19 개봉 . 예매율 19.67%</p>
                         </div>
                     </li>
                 </ul>
             </div>
             <div id="page">                
-                <ul>
-                    <li><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                </ul>
+                <div>
+                    <span><a href="">1</a></span>
+                    <span><a href="">2</a></span>
+                </div>
             </div>
         </div>
         <div id="footer">
@@ -528,6 +606,25 @@
                     <div style="color: white; margin-top: 8px;">
                         Copyright © Kakao Corp. All rights reserved.
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="top">
+        <div id="top_in">
+            <div class="daum">
+                <a href=""><img src="./movieimg/daum_ico.png" alt=""></a>
+            </div>
+            <div class="services">
+                <div class="login">
+                    <a href="">로그인</a>
+                </div>
+                <div class="mail">
+                    <a href=""><img src="./movieimg/mail.png" alt=""></a>
+                </div>
+                <div class="service_nav">
+                    <a href=""><img src="./movieimg/serv.png" alt=""></a>
                 </div>
             </div>
         </div>
